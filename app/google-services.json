@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "797109342676",
+    "firebase_url": "https://konus-1.firebaseio.com",
+    "project_id": "konus-1",
+    "storage_bucket": "konus-1.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:797109342676:android:b2e97f9516e8f9c8",
+        "android_client_info": {
+          "package_name": "ru.ustyantsev.konus"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "797109342676-dbvjhfmjc4legacorodb2rjnc9ia8ee5.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "ru.ustyantsev.konus",
+            "certificate_hash": "aa12fe59833ca36d42b770843a9a3f402d464ea9"
+          }
+        },
+        {
+          "client_id": "797109342676-h7iop7p8pou7h08d15322kpcanmreklr.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBXkhVLcRnKF1XE-vR52ArWdn7aU2w_0QY"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "797109342676-h7iop7p8pou7h08d15322kpcanmreklr.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
