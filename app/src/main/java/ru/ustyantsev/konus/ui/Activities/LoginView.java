@@ -17,7 +17,7 @@ import ru.ustyantsev.konus.ui.Fragments.AuthModerateView;
 import ru.ustyantsev.konus.ui.Fragments.AuthStudentView;
 import ru.ustyantsev.konus.ui.Fragments.PAuthStudentView;
 
-public class LoginView extends FragmentActivity implements PAuthStudentView.OnFragment1DataListener{ //implements IloginView, View.OnClickListener{
+public class LoginView extends FragmentActivity implements FragmentReplacement{ //implements IloginView, View.OnClickListener{
     /*LoginPresenter presenter;
     Button btn;
     EditText et;*/
@@ -37,7 +37,7 @@ public class LoginView extends FragmentActivity implements PAuthStudentView.OnFr
         authModerateView = new AuthModerateView();
     }
     @Override
-    public void onFragment1DataListener() { //реализация метода интерфейса фрагмента
+    public void fragmentReplacement() { //реализация метода интерфейса фрагмента
         fm.beginTransaction().replace(R.id.container, authModerateView).addToBackStack(null).commit(); //меняем фрагмент на другой и запихиваем его в backStack
 
     }
