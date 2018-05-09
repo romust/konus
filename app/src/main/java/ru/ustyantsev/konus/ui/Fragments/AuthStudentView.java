@@ -6,10 +6,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
+
 import ru.ustyantsev.konus.R;
 
 public class AuthStudentView extends Fragment implements View.OnClickListener{
-    Button button;
+    Button btnReplace, btnLogin;
+    EditText etName;
     public PAuthStudentView pAuthStudentView;
 
     @Override
@@ -22,13 +25,23 @@ public class AuthStudentView extends Fragment implements View.OnClickListener{
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.auth_student, null);
-        button = v.findViewById(R.id.button);
-        button.setOnClickListener(this);
+        etName = v.findViewById(R.id.etName);
+        btnReplace = v.findViewById(R.id.btnReplace);
+        btnLogin = v.findViewById(R.id.btnLogin);
+        btnReplace.setOnClickListener(this);
+        btnLogin.setOnClickListener(this);
         return v;
     }
 
     @Override
     public void onClick(View view) {
-        pAuthStudentView.onButtonClicked();
+        switch (view.getId()) {
+            case R.id.btnLogin:
+                pAuthStudentView.setName(etName.getText().toString());
+                break;
+            case R.id.btnReplace:
+                pAuthStudentView.onButtonClicked();
+                break;
+        }
     }
 }

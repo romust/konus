@@ -5,11 +5,13 @@ import ru.ustyantsev.konus.ui.Activities.FragmentReplacement;
 
 public class PAuthStudentView {
     AuthStudentView view;
+    MLogin mLogin;
 
 
     private FragmentReplacement fragmentReplace; //1.2 создаем объект интерфейса
     public PAuthStudentView(AuthStudentView view){
         this.view = view;
+        mLogin = new MLogin();
     }
 
     public void onAttach(Context context) { //1.3 этап жизненного цикла фрагмента, в момент присоединения его к activity
@@ -20,6 +22,9 @@ public class PAuthStudentView {
             throw new RuntimeException(context.toString() //1.6 иначе вызываем исключение и закрываем приложение
                     + " must implement OnFragment1DataListener");
         }
+    }
+    public void setName(String name){
+        mLogin.getName(name);
     }
 
     public void onButtonClicked(){
