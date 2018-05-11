@@ -1,4 +1,5 @@
 package ru.ustyantsev.konus;
+
 import android.support.annotation.NonNull;
 import android.util.Log;
 
@@ -19,7 +20,8 @@ public class LoginModel {
     final static String TAG = "mytag";
 
     public FirebaseFirestore db;
-    public void fireStore(){
+
+    public void fireStore() {
         db = FirebaseFirestore.getInstance();
 
         Map<String, Object> transaction = new HashMap<>();
@@ -27,7 +29,6 @@ public class LoginModel {
         transaction.put("2", "25");
         transaction.put("3", "15");
 
-// Добавьте новый документ со сгенерированным ID
         db.collection("transaction").document("12")
                 .set(transaction)
                 // Устанавливаем слушатели успеха/провала
@@ -49,8 +50,8 @@ public class LoginModel {
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         if (task.isSuccessful()) {
-                            for(DocumentSnapshot doc : task.getResult()) {
-                                Log.d(TAG, "1: " +doc.getId() + " " + doc.get("1"));
+                            for (DocumentSnapshot doc : task.getResult()) {
+                                Log.d(TAG, "1: " + doc.getId() + " " + doc.get("1"));
                             }
                         } else {
                             Log.w(TAG, "Ошибка получения документа.", task.getException());
@@ -58,7 +59,6 @@ public class LoginModel {
                     }
                 });
     }
-    public String toPlusTwo(String name){
-        return name + "her";
-    }
+
+
 }

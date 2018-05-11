@@ -1,4 +1,4 @@
-package ru.ustyantsev.konus.ui.Fragments;
+package ru.ustyantsev.konus.ui.Fragments.StudentLogin;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -10,16 +10,16 @@ import android.widget.EditText;
 
 import ru.ustyantsev.konus.R;
 
-public class AuthStudentView extends Fragment implements View.OnClickListener{
+public class StudentLoginView extends Fragment implements View.OnClickListener{
     Button btnReplace, btnLogin;
     EditText etName;
-    public PAuthStudentView pAuthStudentView;
+    public StudentLoginPresenter studentLoginPresenter;
 
     @Override
     public void onAttach(Context context) { //1.3 этап жизненного цикла фрагмента, в момент присоединения его к activity
         super.onAttach(context);
-        pAuthStudentView = new PAuthStudentView(this);
-        pAuthStudentView.onAttach(context);
+        studentLoginPresenter = new StudentLoginPresenter(this);
+        studentLoginPresenter.onAttach(context);
     }
 
     @Override
@@ -37,10 +37,10 @@ public class AuthStudentView extends Fragment implements View.OnClickListener{
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.btnLogin:
-                pAuthStudentView.setName(etName.getText().toString());
+                studentLoginPresenter.setName(etName.getText().toString());
                 break;
             case R.id.btnReplace:
-                pAuthStudentView.onButtonClicked();
+                studentLoginPresenter.onButtonClicked();
                 break;
         }
     }
