@@ -1,4 +1,4 @@
-package ru.ustyantsev.konus.common;
+package ru.ustyantsev.konus.utils;
 
 import android.text.TextUtils;
 

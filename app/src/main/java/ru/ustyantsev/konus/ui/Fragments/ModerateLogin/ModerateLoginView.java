@@ -15,16 +15,13 @@ import ru.ustyantsev.konus.R;
 
 public class ModerateLoginView extends Fragment implements View.OnClickListener {
     public ModerateLoginPresenter presenter;
-
-    final static String TAG = "ooo";
     EditText etEmail, etPassword;
     Button btnLogin;
-    String email, password;
 
     @Override
     public void onAttach(Context context) { //1.3 этап жизненного цикла фрагмента, в момент присоединения его к activity
         super.onAttach(context);
-        presenter = new ModerateLoginPresenter(this, getActivity());
+        presenter = new ModerateLoginPresenter(this, context);
     }
 
     @Override
@@ -40,9 +37,9 @@ public class ModerateLoginView extends Fragment implements View.OnClickListener 
 
     @Override
     public void onClick(View view) {
-        email = etEmail.getText().toString();
-        password = etPassword.getText().toString();
-        presenter.setData(email, password);
+        if(!etEmail.getText().toString().equals("") && !etPassword.getText().toString().equals("")) {
+            presenter.moderateLogIn(etEmail.getText().toString(), etPassword.getText().toString());
+        }
     }
 
     public void showToast(String text) {

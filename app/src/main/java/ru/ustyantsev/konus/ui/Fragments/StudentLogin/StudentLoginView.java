@@ -11,15 +11,15 @@ import android.widget.EditText;
 import ru.ustyantsev.konus.R;
 
 public class StudentLoginView extends Fragment implements View.OnClickListener{
-    Button btnReplace, btnLogin;
+    public StudentLoginPresenter presenter;
     EditText etName;
-    public StudentLoginPresenter studentLoginPresenter;
+    Button btnReplace, btnLogin;
 
     @Override
     public void onAttach(Context context) { //1.3 этап жизненного цикла фрагмента, в момент присоединения его к activity
         super.onAttach(context);
-        studentLoginPresenter = new StudentLoginPresenter(this);
-        studentLoginPresenter.onAttach(context);
+        presenter = new StudentLoginPresenter(this, context);
+        presenter.findFragmentReplacement();
     }
 
     @Override
@@ -37,11 +37,14 @@ public class StudentLoginView extends Fragment implements View.OnClickListener{
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.btnLogin:
-                studentLoginPresenter.setName(etName.getText().toString());
+                if(!etName.getText().toString().equals("")) {
+                    presenter.studentLogIn(etName.getText().toString());
+                }
                 break;
             case R.id.btnReplace:
-                studentLoginPresenter.onButtonClicked();
+                presenter.onButtonClicked();
                 break;
         }
     }
+
 }
