@@ -37,12 +37,16 @@ public class ModerateLoginView extends Fragment implements View.OnClickListener 
 
     @Override
     public void onClick(View view) {
+        presenter.hideKeyboard(view);
         if(!etEmail.getText().toString().equals("") && !etPassword.getText().toString().equals("")) {
             presenter.moderateLogIn(etEmail.getText().toString(), etPassword.getText().toString());
+        }
+        else{
+            showToast("Заполните все поля");
         }
     }
 
     public void showToast(String text) {
-        Toast.makeText(getActivity(), text, Toast.LENGTH_LONG).show();
+        Toast.makeText(getActivity(), text, Toast.LENGTH_SHORT).show();
     }
 }

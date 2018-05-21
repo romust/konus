@@ -3,6 +3,7 @@ package ru.ustyantsev.konus.ui.Fragments.ModerateLogin;
 import android.app.Activity;
 import android.content.Context;
 import android.support.annotation.NonNull;
+import android.view.View;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -17,7 +18,6 @@ public class ModerateLoginPresenter {
     private FirebaseAuth mAuth;
     private LoginPresenter loginPresenter;
     private final Context context;
-    private final static String TAG = "ooo";
 
     ModerateLoginPresenter(ModerateLoginView view, Context context) {
         this.view = view;
@@ -30,19 +30,24 @@ public class ModerateLoginPresenter {
     }
 
     void moderateLogIn(String email, String password) {
+        loginPresenter.showProgressDialog();
         mAuth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener((Activity) context, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
                             Log.d("Firebase Аутентификация: успешно!");
+                            loginPresenter.hideProgressDialog();
                             loginPresenter.updateUI();
                         } else {
+                            loginPresenter.hideProgressDialog();
                             Log.d("Firebase Аутентификация: не пройдено!" + task.getException());
                             view.showToast("Неверный логин или пароль!");
-                            loginPresenter.updateUI();
                         }
                     }
                 });
+    }
+    public void hideKeyboard(View v){
+        loginPresenter.hideKeyboard(v);
     }
 }

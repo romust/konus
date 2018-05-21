@@ -8,4 +8,7 @@
     <string name="action_settings">Settings</string>
     <string name="title_activity_moderator">ModeratorActivity</string>
     <string name="title_activity_administrator">AdministratorActivity</string>
+    <string name="title_home">Рейтинг</string>
+    <string name="title_dashboard">Мероприятия</string>
+    <string name="title_notifications">История</string>
 </resources>

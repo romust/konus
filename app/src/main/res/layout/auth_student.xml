@@ -25,6 +25,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
+            android:focusable="auto"
             android:hint="Иванов Иван Иванович"
             android:inputType="textPersonName"
             tools:layout_editor_absoluteX="84dp"

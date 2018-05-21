@@ -7,8 +7,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import ru.ustyantsev.konus.R;
+import ru.ustyantsev.konus.utils.Log;
 
 public class StudentLoginView extends Fragment implements View.OnClickListener{
     public StudentLoginPresenter presenter;
@@ -35,16 +37,21 @@ public class StudentLoginView extends Fragment implements View.OnClickListener{
 
     @Override
     public void onClick(View view) {
+        presenter.hideKeyboard(view);
         switch (view.getId()) {
             case R.id.btnLogin:
                 if(!etName.getText().toString().equals("")) {
                     presenter.studentLogIn(etName.getText().toString());
                 }
+                else showToast("Заполните поле ФИО");
                 break;
             case R.id.btnReplace:
-                presenter.onButtonClicked();
+                presenter.onModeratorButtonClicked();
                 break;
         }
+    }
+    public void showToast(String text){
+        Toast.makeText(getActivity(), text, Toast.LENGTH_SHORT).show();
     }
 
 }
