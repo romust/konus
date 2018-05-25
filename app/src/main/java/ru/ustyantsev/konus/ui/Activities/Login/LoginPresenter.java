@@ -59,6 +59,7 @@ public class LoginPresenter {
                                     Log.d("SAVED");
                                 }
                                 if(admin){
+                                    Log.d("Presenter");
                                     Intent intent = new Intent(context, AdministratorActivity.class);
                                     intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                                     context.startActivity(intent);

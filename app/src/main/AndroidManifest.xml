@@ -3,6 +3,8 @@
     package="ru.ustyantsev.konus">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
 
     <application
         android:name=".Konus"
@@ -26,7 +28,7 @@
             android:label="@string/title_activity_student"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"
-            />
+            android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".ui.Activities.Moderator.ModeratorActivity"
             android:label="@string/title_activity_moderator"
@@ -37,6 +39,7 @@
             android:label="@string/title_activity_administrator"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".ui.Activities.Sheets"></activity>
     </application>
 
 </manifest>

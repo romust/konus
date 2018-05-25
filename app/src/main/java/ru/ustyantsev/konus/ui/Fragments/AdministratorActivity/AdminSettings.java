@@ -1,7 +1,6 @@
-package ru.ustyantsev.konus.ui.Fragments.StudentActivity;
+package ru.ustyantsev.konus.ui.Fragments.AdministratorActivity;
 
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -9,21 +8,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
-import java.util.List;
-
-import pub.devrel.easypermissions.EasyPermissions;
 import ru.ustyantsev.konus.R;
 import ru.ustyantsev.konus.ui.Activities.Sheets;
 import ru.ustyantsev.konus.ui.Activities.utils.FragmentReplacement;
 
-public class StudentEvents extends Fragment implements View.OnClickListener{
-
-    Button btn;
+public class AdminSettings extends Fragment implements View.OnClickListener{
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View v = inflater.inflate(R.layout.student_events, null);
-        btn = v.findViewById(R.id.btnSheets);
-        btn.setOnClickListener(this);
+        View v = inflater.inflate(R.layout.admin_settings, null);
         return v;
     }
 
@@ -42,7 +34,7 @@ public class StudentEvents extends Fragment implements View.OnClickListener{
 
     @Override
     public void onClick(View view) {
-        Sheets sheets = new Sheets();
-        sheets.updateGoogleSheet();
+
     }
 }
+

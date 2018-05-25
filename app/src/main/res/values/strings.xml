@@ -8,7 +8,9 @@
     <string name="action_settings">Settings</string>
     <string name="title_activity_moderator">ModeratorActivity</string>
     <string name="title_activity_administrator">AdministratorActivity</string>
-    <string name="title_home">Рейтинг</string>
-    <string name="title_dashboard">Мероприятия</string>
-    <string name="title_notifications">История</string>
+    <string name="title_rating">Рейтинг</string>
+    <string name="title_events">Мероприятия</string>
+    <string name="title_history">История</string>
+    <string name="title_transactions">Транзакции</string>
+    <string name="title_settings">Настройки</string>
 </resources>

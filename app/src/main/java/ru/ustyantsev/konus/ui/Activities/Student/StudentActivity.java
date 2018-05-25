@@ -6,9 +6,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
-import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -20,21 +18,22 @@ import ru.ustyantsev.konus.ui.Activities.Login.LoginView;
 import ru.ustyantsev.konus.ui.Activities.utils.FragmentReplacement;
 import ru.ustyantsev.konus.ui.Fragments.StudentActivity.StudentEvents;
 import ru.ustyantsev.konus.ui.Fragments.StudentActivity.StudentRating;
-import ru.ustyantsev.konus.ui.Fragments.StudentLogin.StudentLoginView;
 
 public class StudentActivity extends AppCompatActivity implements FragmentReplacement {
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.toolbar_menu, menu);
-        return true;
-    }
-
     private TextView mTextMessage;
     SharedPreferences pref;
     FragmentManager fm = getSupportFragmentManager();
-    Fragment fragment = fm.findFragmentById(R.id.fragment_container);
+    Fragment fragment = fm.findFragmentById(R.id.student_fragment_container);
     StudentRating studentRating = new StudentRating();
     StudentEvents studentEvents = new StudentEvents();
+    private Menu menu;
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.toolbar_menu, menu);
+        menu.getItem(1).setVisible(false);
+        return true;
+    }
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -42,13 +41,13 @@ public class StudentActivity extends AppCompatActivity implements FragmentReplac
         @Override
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             switch (item.getItemId()) {
-                case R.id.navigation_home:
+                case R.id.student_navigation_rating:
                     fragmentReplacement(studentRating);
                     return true;
-                case R.id.navigation_dashboard:
+                case R.id.student_navigation_events:
                     fragmentReplacement(studentEvents);
                     return true;
-                case R.id.navigation_notifications:
+                case R.id.student_navigation_history:
                     pref = getApplicationContext().getSharedPreferences("student", MODE_PRIVATE);
                     SharedPreferences.Editor editor = pref.edit();
                     editor.remove("name");
@@ -68,16 +67,17 @@ public class StudentActivity extends AppCompatActivity implements FragmentReplac
         setContentView(R.layout.activity_student);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
+        getSupportActionBar().setTitle("КОНУС");
+        BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.student_navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
         if(savedInstanceState == null) {
             fragment = new StudentRating(); //создаем экземпляр фрагмента StudentLoginView
-            fm.beginTransaction().add(R.id.fragment_container, fragment).commit();//и добавляем его в контейнер
+            fm.beginTransaction().add(R.id.student_fragment_container, fragment).commit();//и добавляем его в контейнер
         }
     }
     @Override
     public void fragmentReplacement(Fragment fragment) { //реализация метода интерфейса фрагмента
-        fm.beginTransaction().replace(R.id.fragment_container, fragment).addToBackStack(null).commit(); //меняем фрагмент на другой и запихиваем его в backStack
+        fm.beginTransaction().replace(R.id.student_fragment_container, fragment).addToBackStack(null).commit(); //меняем фрагмент на другой и запихиваем его в backStack
     }
 
 }

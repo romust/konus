@@ -30,22 +30,22 @@ public class ModerateLoginPresenter {
     }
 
     void moderateLogIn(String email, String password) {
-        loginPresenter.showProgressDialog();
-        mAuth.signInWithEmailAndPassword(email, password)
-                .addOnCompleteListener((Activity) context, new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if (task.isSuccessful()) {
-                            Log.d("Firebase Аутентификация: успешно!");
-                            loginPresenter.hideProgressDialog();
-                            loginPresenter.updateUI();
-                        } else {
-                            loginPresenter.hideProgressDialog();
-                            Log.d("Firebase Аутентификация: не пройдено!" + task.getException());
-                            view.showToast("Неверный логин или пароль!");
+            loginPresenter.showProgressDialog();
+            mAuth.signInWithEmailAndPassword(email, password)
+                    .addOnCompleteListener((Activity) context, new OnCompleteListener<AuthResult>() {
+                        @Override
+                        public void onComplete(@NonNull Task<AuthResult> task) {
+                            if (task.isSuccessful()) {
+                                Log.d("Firebase Аутентификация: успешно!");
+                                loginPresenter.hideProgressDialog();
+                                loginPresenter.updateUI();
+                            } else {
+                                loginPresenter.hideProgressDialog();
+                                Log.d("Firebase Аутентификация: не пройдено!" + task.getException());
+                                view.showToast("Неверный логин или пароль!");
+                            }
                         }
-                    }
-                });
+                    });
     }
     public void hideKeyboard(View v){
         loginPresenter.hideKeyboard(v);

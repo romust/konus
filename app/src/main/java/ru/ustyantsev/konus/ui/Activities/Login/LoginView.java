@@ -20,19 +20,18 @@ public class LoginView extends FragmentActivity implements FragmentReplacement {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login_view);
+        Log.d("Activity");
         presenter = new LoginPresenter(this, this);
+        presenter.updateUI();
+        super.onCreate(savedInstanceState);
+
+        setContentView(R.layout.activity_login_view);
+
         if(savedInstanceState == null) {
                 fragment = new StudentLoginView(); //создаем экземпляр фрагмента StudentLoginView
                 fm.beginTransaction().add(R.id.container, fragment).commit();//и добавляем его в контейнер
 
         }
-    }
-    @Override
-    public void onStart(){
-        super.onStart();
-        presenter.updateUI();
     }
 
     @Override
