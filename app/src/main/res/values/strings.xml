@@ -13,4 +13,14 @@
     <string name="title_history">История</string>
     <string name="title_transactions">Транзакции</string>
     <string name="title_settings">Настройки</string>
+
+    <string name="button.generate">Generate new\nnavigation</string>
+    <string name="nav.item.search">Search</string>
+    <string name="nav.item.account">Account</string>
+    <string name="nav.item.messages">Messages</string>
+    <string name="menu.up">Up</string>
+    <string name="menu.down">Down</string>
+    <string name="menu.back">Back</string>
+    <string name="menu.search">Search</string>
+    <string name="menu.messages">Messages</string>
 </resources>

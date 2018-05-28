@@ -42,7 +42,7 @@ public class StudentEvents extends Fragment implements View.OnClickListener{
 
     @Override
     public void onClick(View view) {
-        Sheets sheets = new Sheets();
-        sheets.updateGoogleSheet();
+        //Sheets sheets = new Sheets();
+        //sheets.updateGoogleSheet();
     }
 }

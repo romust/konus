@@ -12,6 +12,7 @@ import android.widget.Toast;
 import ru.ustyantsev.konus.R;
 import ru.ustyantsev.konus.ui.Activities.Login.LoginPresenter;
 import ru.ustyantsev.konus.ui.Activities.Student.StudentActivity;
+import ru.ustyantsev.konus.ui.Activities.utils.Utils;
 import ru.ustyantsev.konus.ui.Fragments.ModerateLogin.ModerateLoginView;
 import ru.ustyantsev.konus.utils.Log;
 
@@ -30,12 +31,14 @@ public class StudentLoginPresenter {
     private Context context;
     private LoginPresenter loginPresenter;
     private FragmentReplacement fragmentReplace; //1.2 создаем объект интерфейса
-
+    Utils utils;
 
     StudentLoginPresenter(StudentLoginView view, Context context){
         this.view = view;
         this.context = context;
         loginPresenter = new LoginPresenter(context);
+        utils = new Utils(context);
+        utils.initProgressDialog();
     }
 
     void onModeratorButtonClicked(){
@@ -52,7 +55,7 @@ public class StudentLoginPresenter {
         }
     }
     public void studentLogIn(final String name){
-        loginPresenter.showProgressDialog();
+        utils.showProgressDialog();
         db = FirebaseFirestore.getInstance();
         db.collection("students")
                 .whereEqualTo("name", name)
@@ -69,23 +72,23 @@ public class StudentLoginPresenter {
                                 Log.d("SAVED");
                             }
                             if(pref.getString("name", null)!=null) {
-                                loginPresenter.hideProgressDialog();
-                                loginPresenter.updateUI();
+                                utils.hideProgressDialog();
+                                utils.updateUI();
                             }
                             else{
-                                loginPresenter.hideProgressDialog();
+                                utils.hideProgressDialog();
                                 view.showToast("Проверьте правильность введенных данных");
                             }
 
                         } else {
-                            loginPresenter.hideProgressDialog();
+                            utils.hideProgressDialog();
                             Log.d("Ошибка получения документов: " + task.getException());
                         }
                     }
                 });
     }
     public void hideKeyboard(View v){
-        loginPresenter.hideKeyboard(v);
+        utils.hideKeyboard(v);
     }
 
 

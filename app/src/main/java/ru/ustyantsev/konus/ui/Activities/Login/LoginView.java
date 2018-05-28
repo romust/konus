@@ -22,7 +22,7 @@ public class LoginView extends FragmentActivity implements FragmentReplacement {
     protected void onCreate(Bundle savedInstanceState) {
         Log.d("Activity");
         presenter = new LoginPresenter(this, this);
-        presenter.updateUI();
+
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_login_view);

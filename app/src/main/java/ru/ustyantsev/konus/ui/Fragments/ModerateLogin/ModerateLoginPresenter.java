@@ -11,6 +11,7 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 
 import ru.ustyantsev.konus.ui.Activities.Login.LoginPresenter;
+import ru.ustyantsev.konus.ui.Activities.utils.Utils;
 import ru.ustyantsev.konus.utils.Log;
 
 public class ModerateLoginPresenter {
@@ -18,11 +19,14 @@ public class ModerateLoginPresenter {
     private FirebaseAuth mAuth;
     private LoginPresenter loginPresenter;
     private final Context context;
+    Utils utils;
 
     ModerateLoginPresenter(ModerateLoginView view, Context context) {
         this.view = view;
         this.context = context;
         loginPresenter = new LoginPresenter(context);
+        utils = new Utils(context);
+        utils.initProgressDialog();
     }
 
     void onCreateView() {
@@ -30,17 +34,17 @@ public class ModerateLoginPresenter {
     }
 
     void moderateLogIn(String email, String password) {
-            loginPresenter.showProgressDialog();
+            utils.showProgressDialog();
             mAuth.signInWithEmailAndPassword(email, password)
                     .addOnCompleteListener((Activity) context, new OnCompleteListener<AuthResult>() {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             if (task.isSuccessful()) {
                                 Log.d("Firebase Аутентификация: успешно!");
-                                loginPresenter.hideProgressDialog();
-                                loginPresenter.updateUI();
+                                utils.hideProgressDialog();
+                                utils.updateUI();
                             } else {
-                                loginPresenter.hideProgressDialog();
+                                utils.hideProgressDialog();
                                 Log.d("Firebase Аутентификация: не пройдено!" + task.getException());
                                 view.showToast("Неверный логин или пароль!");
                             }
@@ -48,6 +52,6 @@ public class ModerateLoginPresenter {
                     });
     }
     public void hideKeyboard(View v){
-        loginPresenter.hideKeyboard(v);
+        utils.hideKeyboard(v);
     }
 }

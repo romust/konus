@@ -65,9 +65,9 @@ public class StudentActivity extends AppCompatActivity implements FragmentReplac
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_student);
-        Toolbar toolbar = findViewById(R.id.toolbar);
+        /*Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle("КОНУС");
+        getSupportActionBar().setTitle("КОНУС");*/
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.student_navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
         if(savedInstanceState == null) {
