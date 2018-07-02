@@ -11,29 +11,24 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
-import android.support.v7.widget.Toolbar;
 
 import ru.ustyantsev.konus.R;
 import ru.ustyantsev.konus.ui.Activities.Login.LoginView;
 import ru.ustyantsev.konus.ui.Activities.utils.FragmentReplacement;
-import ru.ustyantsev.konus.ui.Fragments.StudentActivity.StudentEvents;
-import ru.ustyantsev.konus.ui.Fragments.StudentActivity.StudentRating;
+import ru.ustyantsev.konus.ui.Fragments.Student.StudentEvents;
+import ru.ustyantsev.konus.ui.Fragments.Student.StudentRating;
+import ru.ustyantsev.konus.ui.Fragments.Student.StudentTransactions;
 
 public class StudentActivity extends AppCompatActivity implements FragmentReplacement {
-    private TextView mTextMessage;
     SharedPreferences pref;
     FragmentManager fm = getSupportFragmentManager();
     Fragment fragment = fm.findFragmentById(R.id.student_fragment_container);
     StudentRating studentRating = new StudentRating();
     StudentEvents studentEvents = new StudentEvents();
-    private Menu menu;
+    StudentTransactions transactions = new StudentTransactions();
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.toolbar_menu, menu);
-        menu.getItem(1).setVisible(false);
-        return true;
-    }
+
+
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -48,13 +43,8 @@ public class StudentActivity extends AppCompatActivity implements FragmentReplac
                     fragmentReplacement(studentEvents);
                     return true;
                 case R.id.student_navigation_history:
-                    pref = getApplicationContext().getSharedPreferences("student", MODE_PRIVATE);
-                    SharedPreferences.Editor editor = pref.edit();
-                    editor.remove("name");
-                    editor.commit();
-                    Intent intent = new Intent (getApplicationContext(), LoginView.class);
-                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                    startActivity(intent);
+                    /**/
+                    fragmentReplacement(transactions);
                     return true;
             }
             return false;
@@ -65,9 +55,6 @@ public class StudentActivity extends AppCompatActivity implements FragmentReplac
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_student);
-        /*Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle("КОНУС");*/
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.student_navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
         if(savedInstanceState == null) {
@@ -79,5 +66,4 @@ public class StudentActivity extends AppCompatActivity implements FragmentReplac
     public void fragmentReplacement(Fragment fragment) { //реализация метода интерфейса фрагмента
         fm.beginTransaction().replace(R.id.student_fragment_container, fragment).addToBackStack(null).commit(); //меняем фрагмент на другой и запихиваем его в backStack
     }
-
 }

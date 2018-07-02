@@ -78,7 +78,6 @@ public class Utils {
             }
         }
     }
-
     public void showToast(String text){
         Toast.makeText(context, text, Toast.LENGTH_LONG).show();
     }

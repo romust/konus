@@ -32,3 +32,4 @@ public class Rating {
         return points;
     }
 }
+

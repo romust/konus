@@ -8,20 +8,21 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
-import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
 
 import ru.ustyantsev.konus.R;
 import ru.ustyantsev.konus.ui.Activities.Login.LoginView;
 import ru.ustyantsev.konus.ui.Activities.utils.FragmentReplacement;
-import ru.ustyantsev.konus.ui.Fragments.StudentActivity.StudentRating;
+import ru.ustyantsev.konus.ui.Fragments.Moderator.ModeratorEvents;
+import ru.ustyantsev.konus.ui.Fragments.Student.StudentRating;
 
 public class ModeratorActivity extends AppCompatActivity implements FragmentReplacement{
 
     FragmentManager fm = getSupportFragmentManager();
     Fragment fragment = fm.findFragmentById(R.id.moderator_fragment_container);
     StudentRating studentRating = new StudentRating();
+    ModeratorEvents moderatorEvents = new ModeratorEvents();
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -30,8 +31,10 @@ public class ModeratorActivity extends AppCompatActivity implements FragmentRepl
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             switch (item.getItemId()) {
                 case R.id.navigation_moderator_rating:
+                    fragmentReplacement(studentRating);
                     return true;
                 case R.id.navigation_moderator_events:
+                    fragmentReplacement(moderatorEvents);
                     return true;
                 case R.id.navigation_moderator_settings:
                     FirebaseAuth.getInstance().signOut();

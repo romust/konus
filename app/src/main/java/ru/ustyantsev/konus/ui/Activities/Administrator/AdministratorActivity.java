@@ -2,6 +2,8 @@ package ru.ustyantsev.konus.ui.Activities.Administrator;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.api.client.googleapis.extensions.android.gms.auth.GoogleAccountCredential;
 
 import com.google.api.client.util.ExponentialBackOff;
@@ -24,9 +26,14 @@ import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 
+import com.google.firebase.Timestamp;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 
 import pub.devrel.easypermissions.AfterPermissionGranted;
@@ -34,10 +41,11 @@ import pub.devrel.easypermissions.EasyPermissions;
 import ru.ustyantsev.konus.R;
 import ru.ustyantsev.konus.ui.Activities.Login.LoginView;
 import ru.ustyantsev.konus.ui.Activities.utils.FragmentReplacement;
-import ru.ustyantsev.konus.ui.Activities.utils.SheetsPermissions;
 import ru.ustyantsev.konus.ui.Activities.utils.Utils;
-import ru.ustyantsev.konus.ui.Fragments.AdministratorActivity.AdminSettings;
-import ru.ustyantsev.konus.ui.Fragments.StudentActivity.StudentRating;
+import ru.ustyantsev.konus.ui.Fragments.Administrator.AdminSettings;
+import ru.ustyantsev.konus.ui.Fragments.Administrator.Estimates;
+import ru.ustyantsev.konus.ui.Fragments.Moderator.ModeratorEvents;
+import ru.ustyantsev.konus.ui.Fragments.Student.StudentRating;
 import ru.ustyantsev.konus.utils.Log;
 
 public class AdministratorActivity extends AppCompatActivity implements FragmentReplacement, EasyPermissions.PermissionCallbacks{
@@ -53,46 +61,57 @@ public class AdministratorActivity extends AppCompatActivity implements Fragment
     FragmentManager fm = getSupportFragmentManager();
     Fragment fragment = fm.findFragmentById(R.id.admin_fragment_container);
     StudentRating studentRating = new StudentRating();
-    AdminSettings adminSettings = new AdminSettings();;
+    AdminSettings adminSettings = new AdminSettings();
+    ModeratorEvents moderatorEvents = new ModeratorEvents();
+    Estimates estimates = new Estimates();
     Utils utils;
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
-            = new BottomNavigationView.OnNavigationItemSelectedListener() {
-
-        @Override
-        public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-            switch (item.getItemId()) {
-                case R.id.navigation_admin_rating:
-                    fragmentReplacement(studentRating);
-                    return true;
-                case R.id.navigation_admin_events:
-                    return true;
-                case R.id.navigation_admin_transactions:
-                    FirebaseAuth.getInstance().signOut();
-                    Intent intent2 = new Intent(getApplicationContext(), LoginView.class);
-                    intent2.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                    startActivity(intent2);
-                    return true;
-                case R.id.navigation_admin_settings:
-                    fragmentReplacement(adminSettings);
-                    return true;
-            }
-            return false;
-        }
-    };
+            = item -> {
+                switch (item.getItemId()) {
+                    case R.id.navigation_admin_rating:
+                        fragmentReplacement(studentRating);
+                        return true;
+                    case R.id.navigation_admin_events:
+                        fragmentReplacement(moderatorEvents);
+                        return true;
+                    case R.id.navigation_admin_transactions:
+                        fragmentReplacement(estimates);
+                        return true;
+                    case R.id.navigation_admin_settings:
+                        fragmentReplacement(adminSettings);
+                        return true;
+                }
+                return false;
+            };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_administrator);
-        BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.admin_navigation);
+        BottomNavigationView navigation = findViewById(R.id.admin_navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
         if(savedInstanceState == null) {
             fragment = new StudentRating(); //создаем экземпляр фрагмента StudentLoginView
             fm.beginTransaction().add(R.id.admin_fragment_container, fragment).commit();//и добавляем его в контейнер
         }
         utils = new Utils(this);
+        /*FirebaseFirestore db = FirebaseFirestore.getInstance();
+        db.collection("administrators").document("BJl3sfBvdUec8dx7mkt2GGBK1ze2").get()
+                .addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        DocumentSnapshot document = task.getResult();
+                        if (document.exists()) {
 
+                            Log.d(new SimpleDateFormat("dd MMMM yyyy HH:mm:ss")
+                                    .format(new Date(document
+                                            .getTimestamp("date")
+                                            .getSeconds()*1000+28800000)));
+                        } else {
+                            Log.d("No such document");
+                        }
+                    }
+                });*/
         mCredential = GoogleAccountCredential.usingOAuth2(
                 getApplicationContext(), Arrays.asList(SCOPES))
                 .setBackOff(new ExponentialBackOff());
@@ -137,7 +156,6 @@ public class AdministratorActivity extends AppCompatActivity implements Fragment
                     "Приложению нужен доступ к вашему аккаунту Google для синхронизации данных рейтинга с Google Таблицами",
                     REQUEST_PERMISSION_GET_ACCOUNTS,
                     Manifest.permission.GET_ACCOUNTS);
-            //checkPermissions();
         }
     }
 

@@ -18,7 +18,7 @@ public final class NavigationDefaults {
 
     private NavigationItems navigationItems = new NavigationItems();
     private NavigationIcons navigationIcons = new NavigationIcons();
-    private View.OnClickListener navigationIconListener = DUMMY_NAV_ICON_LISTENER;
+    public View.OnClickListener navigationIconListener = DUMMY_NAV_ICON_LISTENER;
     private int defaultNavigationIconType;
     private int defaultBottomNavigationItem;
 

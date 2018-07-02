@@ -8,9 +8,7 @@ import android.os.Bundle;
 
 import ru.ustyantsev.konus.R;
 import ru.ustyantsev.konus.ui.Activities.utils.FragmentReplacement;
-import ru.ustyantsev.konus.ui.Fragments.ModerateLogin.ModerateLoginView;
-import ru.ustyantsev.konus.ui.Fragments.StudentActivity.StudentRating;
-import ru.ustyantsev.konus.ui.Fragments.StudentLogin.StudentLoginView;
+import ru.ustyantsev.konus.ui.Fragments.Authentication.StudentLoginView;
 import ru.ustyantsev.konus.utils.Log;
 
 public class LoginView extends FragmentActivity implements FragmentReplacement { //implements IloginView, View.OnClickListener{
@@ -22,15 +20,11 @@ public class LoginView extends FragmentActivity implements FragmentReplacement {
     protected void onCreate(Bundle savedInstanceState) {
         Log.d("Activity");
         presenter = new LoginPresenter(this, this);
-
         super.onCreate(savedInstanceState);
-
         setContentView(R.layout.activity_login_view);
-
         if(savedInstanceState == null) {
                 fragment = new StudentLoginView(); //создаем экземпляр фрагмента StudentLoginView
                 fm.beginTransaction().add(R.id.container, fragment).commit();//и добавляем его в контейнер
-
         }
     }
 
